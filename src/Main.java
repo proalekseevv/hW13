@@ -1,90 +1,65 @@
 
 import java.time.LocalDate;
-import java.util.Scanner;
 
 public class Main {
+    public static void main(String[] args) {
+       printYear(2020);
+       printMobile(0, 2023);
+       int deliveryDay = printDelivery(55) ;
+       if (deliveryDay != -1) {
+           System.out.println("Колл-во дней доставки: " + deliveryDay);
+       } else {
+           System.out.println("Доставки нет");
+       }
 
 
-    public static int printScannerInt () {
-        Scanner scanner = new Scanner((System.in));
-        int enterANumber = scanner.nextInt();
-        return enterANumber;
+
     }
 
-    public static String printScannerString () {
-        Scanner scanner = new Scanner((System.in));
-        String string = scanner.next();
-        return string;
-    }
 
-    public static void printYear () {
-        System.out.println("Введите год: ");
-        int year = printScannerInt();
+
+    public static void printYear (int year) {
         if (year > 1584 && year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
             System.out.println(year + " - год високосный ");
         } else {
             System.out.println(year + " - не високосный");
         }
-
     }
 
 
-    public static void  printYaerMobile () {
-        System.out.println("Введите год телефона: ");
-        int yaermobile = printScannerInt();
-        System.out.println("Если у вас Android введите - 0 , если IOS - 1 : ");
-        int mobileName = printScannerInt();
-        int android = 0;
-        int iOS = 1;
+
+
+    public static void printMobile (int os , int mobileYear) {
+        if (os != 0 && os != 1){
+            System.out.println("Значение должно быть 0 или 1");
+            return;
+        }
         int currentYear = LocalDate.now().getYear();
-        if (yaermobile < currentYear && mobileName == android) {
+        if (mobileYear < currentYear && os == 0) {
             System.out.println("Установите облегченную версию приложения для Android по ссылке");
-        }
-        if (yaermobile < currentYear && mobileName == iOS) {
+        }if (mobileYear < currentYear && os == 1) {
             System.out.println("Установите облегченную версию приложения для IOS по ссылке");
-        }
-        if (yaermobile == currentYear && mobileName == android) {
+        }if (mobileYear == currentYear && os == 0) {
             System.out.println("Установите версию приложения для Android по ссылке");
-        }
-        if (yaermobile == currentYear && mobileName == iOS) {
+        }if (mobileYear == currentYear && os == 1 ) {
             System.out.println("Установите версию приложения для IOS по ссылке");
         }
 
-    }
-
-    public static void  delivery () {
-
-        System.out.println("Введите расстояние в КМ: ");
-        int scanerdelivery = printScannerInt();
-        if (scanerdelivery < 20){
-            System.out.println("Потребуется дней для доставки: 1");
-        } if (scanerdelivery >= 20 && scanerdelivery < 60){
-            System.out.println("Потребуется дней для доставки: 2");
-        } if (scanerdelivery >= 60 && scanerdelivery < 100){
-            System.out.println("Потребуется дней для доставки: 3");
-        } else if (scanerdelivery > 100) {
-            System.out.println("Доставки нет");
-        }
-
 
     }
 
-
-
-
-    public static void main(String[] args) {
-        System.out.println("Задача 1");
-        printYear();
-        System.out.println("Задача 2");
-        printYaerMobile();
-        System.out.println("Задача 3");
-        delivery();
-
-
-
-
-
+    public static int printDelivery (int distance) {
+        if (distance > 100 || distance < 0) {
+            return -1;
+        }if (distance < 20) {
+            return 1;
+        }if (distance > 20 && distance < 60) {
+            return 2;
+        }if (distance > 60) {
+            return 3;
+        }return distance;
     }
+
 
 
 }
